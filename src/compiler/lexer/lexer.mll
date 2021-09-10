@@ -7,6 +7,11 @@
 (*I'm NOT saying that I'm the coolest girl in the world, but...!!!!!!!!!!!!!!*)
 
 
+
+
+(*Di pizza ær fardig i di minutå*)
+
+
 {
   open Tigerparser.Parser  
   exception Error of string
