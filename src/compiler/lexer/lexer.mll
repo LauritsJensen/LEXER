@@ -33,7 +33,7 @@
     | LCUBRACE 
     | RCUBRACE 
     | DOT
-}
+} 
 
 let digits=['0'-'9']+
 
