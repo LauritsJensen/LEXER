@@ -5,12 +5,8 @@
 (**************************************************************************)
 
 (*I'm NOT saying that I'm the coolest girl in the world, but...!!!!!!!!!!!!!!*)
+
 (* Jeg snaker Dansker*)
-(*hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii*)
-(*hhhhhhhhhhhhhhhhhh*)
-
-
-
 
 (*Di pizza ær fardig i di minutå*)
 
@@ -47,6 +43,7 @@
 } 
 
 let digits=['0'-'9']+
+let ident=['a'-'z''A'-'Z']['0'-'9''a'-'z''A'-'Z']+
 
 (* add more named regexps here *)
 
@@ -59,7 +56,8 @@ rule token = parse
   | ":="                { ASSIGN }
   | ":"                 { COLON }
   | "."                 { DOT }
-  | "("                 { paren 0 lexbuf }
+  | "("                 { LPAREN }
+  | ")"                 { RPAREN }
   | "["                 { LSQBRACK }
   | "]"                 { RSQBRACK }
   | "{"                 { LCUBRACK }
@@ -94,7 +92,7 @@ rule token = parse
   | "//"                { single_line_comment lexbuf}
   | "/*"                { multi_line_comment 0 lexbuf}
   | "/"                 { DIVIDE }
-  | id as id            { ID id }
+  | ident as id        { ID id }
   | digits as i         { INT (int_of_string i) }
   | _ as t              { error lexbuf ("Invalid character '" ^ (String.make 1 t) ^ "'") }
 
@@ -109,7 +107,3 @@ and multi_line_comment level = parse
 | "/*"		{ multi_line_comment (level + 1) lexbuf }
 | _		    { multi_line_comment level lexbuf }
 
-and paren level = parse
-  
-| ")"                 { RPAREN }
-| _		    {  }
