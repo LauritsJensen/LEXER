@@ -4,6 +4,9 @@
 (* Do not distribute                                                      *)
 (**************************************************************************)
 
+(*I'm NOT saying that I'm the coolest girl in the world, but...!!!!!!!!!!!!!!*)
+
+
 {
   open Tigerparser.Parser  
   exception Error of string
