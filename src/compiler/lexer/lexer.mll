@@ -93,11 +93,12 @@ and single_line_comment = parse
 | _		      { single_line_comment lexbuf }
 
 and multi_line_comment level = parse
-  eof     { EOF }
+  eof     { error lexbuf "Missing close of multi-line-comment" }
 | "*/"		{ if level = 0 then token lexbuf else multi_line_comment (level - 1) lexbuf }
 | "/*"		{ multi_line_comment (level + 1) lexbuf }
 | _		    { multi_line_comment level lexbuf }
 
 and paren level = parse
-
-  | ")"                 { RPAREN }
+  
+| ")"                 { RPAREN }
+| _		    {  }
