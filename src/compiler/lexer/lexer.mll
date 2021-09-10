@@ -10,6 +10,11 @@
 (*hhhhhhhhhhhhhhhhhh*)
 
 
+
+
+(*Di pizza ær fardig i di minutå*)
+
+
 {
   open Tigerparser.Parser  
   exception Error of string
