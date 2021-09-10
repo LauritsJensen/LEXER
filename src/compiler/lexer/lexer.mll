@@ -6,13 +6,8 @@
 
 (*I'm NOT saying that I'm the coolest girl in the world, but...!!!!!!!!!!!!!!*)
 (* Jeg snaker Dansker*)
-(*hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii*)
-(*hhhhhhhhhhhhhhhhhh*)
-
-
-
-
 (*Di pizza ær fardig i di minutå*)
+(*Don't fear! Asha is here!*)
 
 
 {
