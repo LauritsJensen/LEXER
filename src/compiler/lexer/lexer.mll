@@ -25,7 +25,7 @@ let digits=['0'-'9']+
 let digits_3=['0'-'9']['0'-'9']['0'-'9']
 let ident=['a'-'z''A'-'Z']['_''0'-'9''a'-'z''A'-'Z']* 
 let str_char=[' '-'['] | [']'-'~']
-let whitespaces=['\t'' ''\n''\r']+
+let whitespaces=['\t'' ''\n''\r']+ (*Should whitespaces include form feed? '\x0C'*)
 let set_one=['@'-'_']
 let set_two=['a'-'z']
 (*\^? -> \127*)
@@ -105,7 +105,7 @@ and stringHandler start_pos buf = parse
 | '\\''^'(set_one as c)         { Buffer.add_char buf (Char.chr(Char.code(c)-64)); stringHandler start_pos buf lexbuf }
 | '\\''^'(set_two as c)         { Buffer.add_char buf (Char.chr(Char.code(c)-96)); stringHandler start_pos buf lexbuf }
 | '\\''^''?'                    { Buffer.add_char buf (Char.chr(127)); stringHandler start_pos buf lexbuf }
-| '\\'(whitespaces)'\\'         { stringHandler start_pos buf lexbuf }
+| '\\'(whitespaces as w)'\\'    { String.iter (fun c -> if c = '\n' then Lexing.new_line lexbuf) w; stringHandler start_pos buf lexbuf }
 | '\\'(digits_3 as ddd)         { Buffer.add_char buf (let value = int_of_string ddd in if value >= 0 && value < 256 then Char.chr(value) else error lexbuf (Printf.sprintf "ASCII octal code out of range: was '" ^ ddd ^ "' but should be [0:255]")); stringHandler start_pos buf lexbuf }
 | '\\''\\'                      { Buffer.add_char buf '\\'; stringHandler start_pos buf lexbuf }
 | str_char as c                 { Buffer.add_char buf c; stringHandler start_pos buf lexbuf }
@@ -114,14 +114,7 @@ and stringHandler start_pos buf = parse
 
 
 (*
-let set_one=['@'-'_']
-let set_two=['a'-'z']
-(*\^? -> \127*)
+iter (c -> if c = '\n' then Lexing.new_line lexbuf) w;
 
-
-\^[ = \023
-
-
-escapes_forward= '\\''^''n' | '\\''^''t' | '\\''^'digits_3 | '\\''^''"' | '\\''^''\\'
-| '\\''^'str_char as c          { Buffer.add_string buf (String.concat "" (String.split_on_char '^' (Scanf.unescaped("\\" ^ c))) ; stringHandler start_pos buf lexbuf }
+(*if c = '\n' then Lexing.new_line lexbuf*)
 *)
