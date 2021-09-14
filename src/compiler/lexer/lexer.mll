@@ -106,6 +106,8 @@ and multi_line_comment level = parse
 and stringHandler start_pos buf = parse
   eof                           { error lexbuf "Premature occurence of EOF. Missing close of string" }
 | '"'                           { lexbuf.lex_start_p <- start_pos; STRING (Buffer.contents buf) }
+| '\\''r''\\''n'                { Buffer.add_string buf "\r\n"; stringHandler start_pos buf lexbuf }
+| '\\''r'                       { Buffer.add_char buf '\r'; stringHandler start_pos buf lexbuf }
 | '\\''n'                       { Buffer.add_char buf '\n'; stringHandler start_pos buf lexbuf }
 | '\\''t'                       { Buffer.add_char buf '\t'; stringHandler start_pos buf lexbuf }
 | '\\''"'                       { Buffer.add_char buf '\"'; stringHandler start_pos buf lexbuf }
