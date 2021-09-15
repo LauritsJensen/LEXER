@@ -1,0 +1,4 @@
+let var quoteString = "\""
+let var backslashString = "\\"
+let var tabString = "\t"
+let var newlineString = "\n"
