@@ -1,0 +1,20 @@
+1:1:LET
+1:5:VAR
+1:9:ID quoteString
+1:21:EQ
+1:23:STRING "\""
+2:1:LET
+2:5:VAR
+2:9:ID backslashString
+2:25:EQ
+2:27:STRING "\\"
+3:1:LET
+3:5:VAR
+3:9:ID tabString
+3:19:EQ
+3:21:STRING "\t"
+4:1:LET
+4:5:VAR
+4:9:ID newlineString
+4:23:EQ
+4:25:STRING "\n"
